@@ -5,6 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  //these base line is added for github deployment
+  base: mode === "production" ? "/CampusConnect/" : "/",
   server: {
     host: "::",
     port: 8080,
