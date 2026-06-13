@@ -10,6 +10,8 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
 const noteRoutes = require('./routes/notes');
+const listingRoutes = require('./routes/listings');
+const accommodationRoutes = require('./routes/accommodations');
 const eventRoutes = require('./routes/events');
 const clubRoutes = require('./routes/clubs');
 
@@ -30,6 +32,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/notes', noteRoutes);
+app.use('/api/listings', listingRoutes);
+app.use('/api/accommodations', accommodationRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/clubs', clubRoutes);
 
