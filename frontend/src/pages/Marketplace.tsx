@@ -12,7 +12,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import ConnectionButton from "@/components/ConnectionButton";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE= import.meta.env.VITE_API_BASE  || "http://localhost:5000/api";
+
 const FILE_BASE = API_BASE.replace("/api", "");
 
 interface ListingDoc {

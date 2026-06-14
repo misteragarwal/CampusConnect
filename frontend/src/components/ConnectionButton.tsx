@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { UserPlus, MessageCircle, Clock, UserCheck, Loader2, UserMinus } from "lucide-react";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE= import.meta.env.VITE_API_BASE  || "http://localhost:5000/api";
 
 type ConnStatus = "none" | "pending-out" | "pending-in" | "accepted";
 

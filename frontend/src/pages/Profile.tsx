@@ -18,7 +18,7 @@ import {
   UserPlus, UserMinus, Check,
 } from "lucide-react";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE= import.meta.env.VITE_API_BASE  || "http://localhost:5000/api";
 
 const branches = [
   "Computer Science", "Information Technology", "Electronics & Communication",

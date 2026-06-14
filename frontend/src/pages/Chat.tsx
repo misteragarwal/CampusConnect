@@ -11,7 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/context/AuthContext";
 import NetworkSection from "@/components/NetworkSection";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE= import.meta.env.VITE_API_BASE  || "http://localhost:5000/api";
+
 
 interface Friend {
   _id: string;

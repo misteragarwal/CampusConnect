@@ -23,7 +23,10 @@ const app = express();
 connectDB();
 
 // middleware
-app.use(cors());
+app.use(cors({
+  origin: true, // reflects request origin — fine for dev
+  credentials: true,
+}));
 app.use(express.json());
 
 // Make uploaded files accessible
