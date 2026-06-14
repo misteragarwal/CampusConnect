@@ -7,9 +7,10 @@ import PageContainer from "@/components/layout/PageContainer";
 import { useAuth } from "@/context/AuthContext";
 import {
   Search, MapPin, Wifi, Car, Home, MessageCircle, X, Upload,
-  Loader2, Phone, Trash2, WashingMachine, Refrigerator, Building2, Crosshair,
+  Loader2, Trash2, WashingMachine, Refrigerator, Building2, Crosshair,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import ConnectionButton from "@/components/ConnectionButton";
 
 const API_BASE = "http://localhost:5000/api";
 
@@ -464,20 +465,19 @@ export default function Accommodation({ myListingsOnly = false }: { myListingsOn
                 <div className="flex items-center justify-between pt-4 border-t">
                   <div className="text-sm text-muted-foreground">
                     <p>Posted by {acc.postedBy?.name || "Unknown"}</p>
-                    {/* {acc.postedBy?.college && (
+                    {acc.postedBy?.college && (
                       <p className="flex items-center gap-1 text-xs">
                         <Building2 className="h-3 w-3" /> {acc.postedBy.college}
                       </p>
-                    )} */}
+                    )}
                   </div>
                   <div className="flex gap-2">
-                    <Button className="gap-2" onClick={() => {
-                      if (!user) { alert("Please log in to contact."); return; }
-                      window.location.href = `/chat/${acc.postedBy._id}`;
-                    }}>
-                      <Phone className="h-4 w-4" />
-                      Contact
-                    </Button>
+                    <ConnectionButton
+                      targetUserId={acc.postedBy._id}
+                      contextMessage={`Interested in your accommodation: ${acc.title}`}
+                      size="sm"
+                      showChat={true}
+                    />
                     {user && user.id === acc.postedBy?._id && (
                       <Button variant="outline" size="icon"
                         className="text-destructive hover:text-destructive hover:bg-destructive/10"

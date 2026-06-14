@@ -12,6 +12,8 @@ const postRoutes = require('./routes/posts');
 const noteRoutes = require('./routes/notes');
 const listingRoutes = require('./routes/listings');
 const accommodationRoutes = require('./routes/accommodations');
+const connectionRoutes = require('./routes/connections');
+const messageRoutes = require('./routes/messages');
 const eventRoutes = require('./routes/events');
 const clubRoutes = require('./routes/clubs');
 
@@ -34,8 +36,11 @@ app.use('/api/posts', postRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/accommodations', accommodationRoutes);
+app.use('/api/connections', connectionRoutes);
+app.use('/api/messages', messageRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/clubs', clubRoutes);
+app.use('/api/stats', require('./routes/stats'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

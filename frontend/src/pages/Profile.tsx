@@ -9,10 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import PageContainer from "@/components/layout/PageContainer";
+import ConnectionButton from "@/components/ConnectionButton";
+import NetworkSection from "@/components/NetworkSection";
 import {
   User, Mail, GraduationCap, Building, Edit,
   LogOut, ShoppingBag, FileText, MessageCircle, Phone, Home,
-  BookOpen, CalendarDays, Save, X, Loader2, ShieldCheck,
+  BookOpen, CalendarDays, Save, X, Loader2, ShieldCheck, Users, Search,
+  UserPlus, UserMinus, Check,
 } from "lucide-react";
 
 const API_BASE = "http://localhost:5000/api";
@@ -277,6 +280,9 @@ export default function Profile() {
               </CardContent>
             </Card>
           )}
+
+          {/* ── Network: Friends / All Users ── */}
+          <NetworkSection />
         </div>
 
         {/* ── Right sidebar ── */}

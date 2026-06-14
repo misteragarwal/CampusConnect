@@ -39,4 +39,18 @@ router.put('/me', auth, upload.single('photo'), async (req, res) => {
   }
 });
 
+// GET all users (for "All Users" / discover tab) — excludes self
+router.get('/all', auth, async (req, res) => {
+  try {
+    res.set('Cache-Control', 'no-store');
+    const users = await User.find({ _id: { $ne: req.user._id } })
+      .select('name email college course branch year semester role')
+      .sort({ name: 1 });
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

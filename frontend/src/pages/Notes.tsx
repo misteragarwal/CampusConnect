@@ -6,9 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import PageContainer from "@/components/layout/PageContainer";
 import { useAuth } from "@/context/AuthContext";
+import ConnectionButton from "@/components/ConnectionButton";
 import {
   Search, Download, Upload, BookOpen, FileText,
   X, Loader2, IndianRupee, User, Building, BookMarked, Trash2,
+  Eye
 } from "lucide-react";
 
 const API_BASE = "http://localhost:5000/api";
@@ -264,6 +266,12 @@ export default function Notes({ myNotesOnly = false }: { myNotesOnly?: boolean }
                             ? "Free"
                             : <span className="text-lg font-bold text-primary">₹{note.price}</span>}
                     </Badge>
+                    <ConnectionButton
+                      targetUserId={note.uploader?._id}
+                      contextMessage={`Interested in your listing: ${note.title}`}
+                      size="sm"
+                      showChat={true}
+                    />
                     <a
                       href={`${API_BASE.replace("/api", "")}/uploads/${note.filename}`}
                       target="_blank"
@@ -271,8 +279,8 @@ export default function Notes({ myNotesOnly = false }: { myNotesOnly?: boolean }
                       download={note.originalName}
                     >
                       <Button size="sm" className="gap-2">
-                        <Download className="h-4 w-4" />
-                        {note.price === 0 ? "Download" : "Buy"}
+                        <Eye className="h-4 w-4" />
+                        {note.price === 0 ? "Download" : "Preview"}
                       </Button>
                     </a>
                     {/* Delete — only visible to uploader */}

@@ -6,10 +6,11 @@ import { Label } from "@/components/ui/label";
 import PageContainer from "@/components/layout/PageContainer";
 import { useAuth } from "@/context/AuthContext";
 import {
-  Search, Tag, MessageCircle, Heart, X, Upload, Loader2,
+  Search, Tag, Heart, X, Upload, Loader2,
   Building, Trash2, ImagePlus,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import ConnectionButton from "@/components/ConnectionButton";
 
 const API_BASE = "http://localhost:5000/api";
 const FILE_BASE = API_BASE.replace("/api", "");
@@ -134,10 +135,6 @@ export default function Marketplace({ myListingsOnly = false }: { myListingsOnly
     }
   };
 
-  const handleContactSeller = (listing: ListingDoc) => {
-    if (!user) { alert("Please log in to contact the seller."); return; }
-    window.location.href = `/chat/${listing.seller._id}`;
-  };
 
   return (
     <PageContainer>
@@ -248,10 +245,12 @@ export default function Marketplace({ myListingsOnly = false }: { myListingsOnly
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="default" className="flex-1 gap-2" onClick={() => handleContactSeller(listing)}>
-                    <MessageCircle className="h-4 w-4" />
-                    Contact Seller
-                  </Button>
+                  <ConnectionButton
+                    targetUserId={listing.seller._id}
+                    contextMessage={`Interested in your listing: ${listing.title}`}
+                    size="sm"
+                    showChat={true}
+                  />
                   {user && user.id === listing.seller?._id ? (
                     <Button variant="outline" size="icon"
                       className="text-destructive hover:text-destructive hover:bg-destructive/10"

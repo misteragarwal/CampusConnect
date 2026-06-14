@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import PageContainer from "@/components/layout/PageContainer";
@@ -13,6 +14,8 @@ import {
   Sparkles,
   ArrowRight
 } from "lucide-react";
+
+const API_BASE = "http://localhost:5000/api";
 
 const quickLinks = [
   {
@@ -55,7 +58,36 @@ const campusFeed = [
   { type: "new", title: "3 new PG listings", subtitle: "Near NSEC Campus" },
 ];
 
+interface SiteStats {
+  activeStudents: number;
+  notesShared: number;
+  colleges: number;
+}
+
+// Formats a raw count into a display string, e.g. 2543 -> "2.5k+", 12 -> "12+"
+const formatStat = (num: number) => {
+  if (num >= 1000) {
+    const rounded = (num / 1000).toFixed(1).replace(/\.0$/, "");
+    return `${rounded}k+`;
+  }
+  return `${num}+`;
+};
+
 export default function Home() {
+  const [stats, setStats] = useState<SiteStats | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/stats`, { cache: "no-store" });
+        if (res.ok) setStats(await res.json());
+      } catch {
+        // silent fail — section just keeps showing placeholders
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <PageContainer>
       {/* Hero Section */}
@@ -128,15 +160,21 @@ export default function Home() {
             <CardContent className="p-6">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="text-3xl font-bold text-primary">2.5k+</div>
+                  <div className="text-3xl font-bold text-primary">
+                    {stats ? formatStat(stats.activeStudents) : "—"}
+                  </div>
                   <div className="text-sm text-muted-foreground">Active Students</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-accent">850+</div>
+                  <div className="text-3xl font-bold text-accent">
+                    {stats ? formatStat(stats.notesShared) : "—"}
+                  </div>
                   <div className="text-sm text-muted-foreground">Notes Shared</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-primary">10+</div>
+                  <div className="text-3xl font-bold text-primary">
+                    {stats ? formatStat(stats.colleges) : "—"}
+                  </div>
                   <div className="text-sm text-muted-foreground">Colleges</div>
                 </div>
               </div>
